@@ -1,0 +1,132 @@
+<resources>
+    <string name="app_name">HIMARKA</string>
+    <string name="app_tagline">Smart Mini Cold Storage System</string>
+
+    <string name="nav_home">Home</string>
+    <string name="nav_storage">Storage</string>
+    <string name="nav_produce">Produce</string>
+    <string name="nav_energy">Energy</string>
+    <string name="nav_alerts">Alerts</string>
+    <string name="nav_settings">Settings</string>
+
+    <string name="status_demo">DEMO MODE</string>
+    <string name="status_live">LIVE</string>
+    <string name="status_healthy">Optimal</string>
+    <string name="status_warning">Warning</string>
+    <string name="status_critical">Critical</string>
+    <string name="status_cooling_active">Cooling Active</string>
+    <string name="status_cooling_idle">Cooling Idle</string>
+    <string name="status_selected">Selected</string>
+    <string name="status_pending">Pending Confirmation</string>
+    <string name="status_active">ACTIVE</string>
+
+    <string name="dashboard_title">Storage Overview</string>
+    <string name="dashboard_health_title">Storage Health</string>
+    <string name="dashboard_temp_label">Temperature</string>
+    <string name="dashboard_humidity_label">Humidity</string>
+    <string name="dashboard_active_mode">Active Mode</string>
+    <string name="dashboard_stored_crop">Stored Produce</string>
+    <string name="dashboard_stored_produce_count">%1$d crops</string>
+    <string name="dashboard_power_summary">Power Availability</string>
+    <string name="dashboard_gas_label">Produce Condition</string>
+    <string name="dashboard_gas_fresh">Fresh</string>
+    <string name="dashboard_cooling_system">Cooling System</string>
+    <string name="dashboard_solar_status">Solar Status</string>
+    <string name="dashboard_generating">Generating</string>
+    <string name="dashboard_idle">Idle</string>
+    <string name="dashboard_active">Active</string>
+    <string name="dashboard_quick_alerts">Active Alerts</string>
+    <string name="dashboard_no_alerts">All systems normal. No active alerts.</string>
+
+    <string name="storage_title">Storage Control</string>
+    <string name="storage_current_title">CURRENT STORAGE</string>
+    <string name="storage_produce_title">STORED PRODUCE</string>
+    <string name="storage_preset_header">Available Presets</string>
+    <string name="mode_1_title">Mode 1 — Near Freezing</string>
+    <string name="mode_1_range">0°C – 2°C</string>
+    <string name="mode_1_desc">Recommended for leafy greens, cruciferous vegetables, root crops, and green peas.</string>
+    <string name="mode_2_title">Mode 2 — Cool Storage</string>
+    <string name="mode_2_range">5°C – 7°C</string>
+    <string name="mode_2_desc">Recommended for french beans and potatoes.</string>
+    <string name="mode_3_title">Mode 3 — Chilling Sensitive</string>
+    <string name="mode_3_range">10°C – 13°C</string>
+    <string name="mode_3_desc">Recommended for tomatoes, capsicum, brinjal, okra, cucumber, ginger, and turmeric.</string>
+    <string name="storage_select_mode">Request Mode Change</string>
+    <string name="storage_active_badge">CURRENT ACTIVE PRESET</string>
+    <string name="storage_target_prefix">Target Range: %1$s</string>
+    <string name="storage_safety_notice">Hardware Protection Boundary: Requested mode changes are submitted as command intents and validated by the ESP32 firmware before cooling actuation.</string>
+    <string name="storage_crop_compatibility">Compatibility</string>
+
+    <string name="produce_title">Produce &amp; Crop Selection</string>
+    <string name="produce_stored_produce">Stored Produce</string>
+    <string name="produce_add_produce">+ Add Produce</string>
+    <string name="produce_remove">Remove</string>
+    <string name="produce_no_crops">No produce currently stored.</string>
+    <string name="produce_compatibility">Storage Recommendation</string>
+    <string name="produce_compatible">Compatible Storage</string>
+    <string name="produce_conflict">Temperature Conflict</string>
+    <string name="produce_conflict_desc">These crops require different storage conditions. Please remove conflicting produce to ensure safety.</string>
+    <string name="produce_compatible_desc">Mode %1$s is suitable for the selected produce.</string>
+    <string name="produce_select_to_add">Select Produce to Add</string>
+    <string name="produce_ai_card_title">Crop Recognition &amp; Recommendation</string>
+    <string name="produce_confidence_label">%1$d%% Confidence</string>
+    <string name="produce_ai_not_configured">AI Inference Model: Not Configured (Manual Crop Selection)</string>
+    <string name="produce_rec_mode">Recommended Preset: %1$s</string>
+    <string name="produce_detected_label">Selected Crop: %1$s</string>
+    <string name="produce_reference_label">Scientific Reference: %1$s</string>
+    <string name="produce_confirm_button">Confirm &amp; Request Preset Change</string>
+    <string name="produce_low_confidence_warn">Low confidence detection (&lt; 60%%). Manual confirmation required.</string>
+    <string name="produce_unverified_warn">Unverified crop profile (Garlic). Manual confirmation required.</string>
+    <string name="produce_conflict_warn">Temperature Conflict: Selected crops require %1$s (%2$s), but current active preset is %3$s (%4$s). Confirming will request a mode change.</string>
+    <string name="produce_catalog_title">Crop Catalog (24 Supported Crops)</string>
+    <string name="produce_search_hint">Search crops&#8230;</string>
+    <string name="produce_manual_select">Select Manually</string>
+    <string name="produce_reference_prefix">Reference: %1$s | Recommended: %2$s</string>
+    <string name="action_request_mode">Request Mode %1$s</string>
+
+    <string name="energy_title">Solar &amp; Power System</string>
+    <string name="energy_battery_level">Battery Level</string>
+    <string name="energy_solar_gen">Solar Generation</string>
+    <string name="energy_cooling_power">Cooling Consumption</string>
+    <string name="energy_solar_volt">Solar Voltage</string>
+    <string name="energy_battery_volt">Battery Voltage</string>
+    <string name="energy_status_good">Power status healthy. Solar generation active.</string>
+    <string name="energy_solar_active">SOLAR ACTIVE</string>
+    <string name="energy_dc_bus">System DC Bus</string>
+    <string name="energy_nominal">Nominal</string>
+
+    <string name="alerts_title">System Alerts</string>
+    <string name="alerts_filter_all">All</string>
+    <string name="alerts_filter_active">Active</string>
+    <string name="alerts_filter_resolved">Resolved</string>
+    <string name="alerts_acknowledge">Acknowledge</string>
+    <string name="alerts_empty">No alerts found</string>
+
+    <string name="settings_title">Settings &amp; Technical</string>
+    <string name="settings_language">Language / ভাষা / भाषा</string>
+    <string name="settings_data_mode">Telemetry Source</string>
+    <string name="settings_demo_mode">Demonstration Mode (Simulated Telemetry)</string>
+    <string name="settings_demo_hint">Simulated telemetry for presentation and testing.</string>
+    <string name="settings_technical_info">Hardware &amp; Sensor Diagnostics</string>
+    <string name="settings_esp32_status">Controller Unit (ESP32)</string>
+    <string name="settings_sht31_status">Temperature / Humidity Sensor (SHT31)</string>
+    <string name="settings_mq135_status">Air Quality Sensor (MQ-135)</string>
+    <string name="settings_ov2640_status">AI Camera Module (OV2640)</string>
+    <string name="settings_status_demo">Simulated (DEMO)</string>
+    <string name="settings_status_not_calibrated">Uncalibrated Sensor</string>
+    <string name="settings_status_not_configured">Not Configured</string>
+    <string name="settings_about">About HIMARKA</string>
+    <string name="settings_about_desc">HIMARKA is a solar-powered, crop-aware mini cold-storage system for farm-level vegetable preservation in the North Eastern Region.</string>
+
+    <string name="health_optimal">Optimal Temperature (%1$.1f°C)</string>
+    <string name="health_below_target">Below Target Preset (%1$.1f°C)</string>
+    <string name="health_above_target">Above Target Preset (%1$.1f°C)</string>
+    <string name="health_offline">Device Offline</string>
+    <string name="shelf_life_not_configured">Not Configured</string>
+
+    <string name="btn_retry">Retry</string>
+    <string name="btn_close">Close</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="btn_apply">Apply</string>
+    <string name="offline_notice">Offline — Displaying cached data from last heartbeat.</string>
+</resources>

@@ -88,4 +88,118 @@ class HimarkaFoundationAuditTest {
         repository.setDemoMode(false)
         assertFalse(repository.telemetryFlow.value.isDemoMode)
     }
+
+    @Test
+    fun `storageViewModel dispatches command intent and updates repository state`() {
+        val viewModel = com.example.himarka.feature.storage.StorageViewModel(
+            repository = repository,
+            compatibilityUseCase = compatibilityUseCase
+        )
+
+        viewModel.requestModeChange(StoragePreset.MODE_2)
+
+        assertEquals(StoragePreset.MODE_2, repository.activePresetFlow.value)
+        val latestResult = repository.latestCommandResultFlow.value
+        assertNotNull(latestResult)
+        assertEquals(CommandStatus.EXECUTED, latestResult?.status)
+    }
+
+    @Test
+    fun `dashboard humidity evaluation maps safe and boundary conditions correctly`() {
+        assertEquals(
+            com.example.himarka.feature.dashboard.HumidityStatus.STABLE,
+            com.example.himarka.feature.dashboard.DashboardViewModel.evaluateHumidityStatus(89f)
+        )
+        assertEquals(
+            com.example.himarka.feature.dashboard.HumidityStatus.HIGH,
+            com.example.himarka.feature.dashboard.DashboardViewModel.evaluateHumidityStatus(97f)
+        )
+        assertEquals(
+            com.example.himarka.feature.dashboard.HumidityStatus.LOW,
+            com.example.himarka.feature.dashboard.DashboardViewModel.evaluateHumidityStatus(60f)
+        )
+    }
+
+    @Test
+    fun `dashboard cooling and solar evaluation respect telemetry and online status`() {
+        val normalTelemetry = com.example.himarka.data.model.Telemetry(
+            isCoolingActive = true,
+            solarGenerationW = 50f,
+            solarVoltageV = 19.4f,
+            isDeviceOnline = true
+        )
+        assertEquals(
+            com.example.himarka.feature.dashboard.CoolingStatus.ACTIVE,
+            com.example.himarka.feature.dashboard.DashboardViewModel.evaluateCoolingStatus(normalTelemetry)
+        )
+        assertEquals(
+            com.example.himarka.feature.dashboard.SolarStatus.ACTIVE,
+            com.example.himarka.feature.dashboard.DashboardViewModel.evaluateSolarStatus(normalTelemetry)
+        )
+
+        val offlineTelemetry = normalTelemetry.copy(isDeviceOnline = false)
+        assertEquals(
+            com.example.himarka.feature.dashboard.CoolingStatus.UNAVAILABLE,
+            com.example.himarka.feature.dashboard.DashboardViewModel.evaluateCoolingStatus(offlineTelemetry)
+        )
+        assertEquals(
+            com.example.himarka.feature.dashboard.SolarStatus.UNKNOWN,
+            com.example.himarka.feature.dashboard.DashboardViewModel.evaluateSolarStatus(offlineTelemetry)
+        )
+    }
+
+    @Test
+    fun `dashboard power evaluation restricts cooling under low battery`() {
+        assertEquals(
+            com.example.himarka.feature.dashboard.PowerStatus.COOLING_READY,
+            com.example.himarka.feature.dashboard.DashboardViewModel.evaluatePowerStatus(94)
+        )
+        assertEquals(
+            com.example.himarka.feature.dashboard.PowerStatus.RESTRICTED,
+            com.example.himarka.feature.dashboard.DashboardViewModel.evaluatePowerStatus(15)
+        )
+    }
+
+    @Test
+    fun `dashboard stored produce formatting supports zero, single, and multiple crops without exploding UI`() {
+        val cabbage = CropCatalog.allCrops.first { it.id == "cabbage" }
+        val tomato = CropCatalog.allCrops.first { it.id == "tomato" }
+        val carrot = CropCatalog.allCrops.first { it.id == "carrot" }
+
+        assertEquals(
+            "",
+            com.example.himarka.feature.dashboard.DashboardViewModel.formatStoredProduce(emptyList())
+        )
+        assertEquals(
+            "Cabbage",
+            com.example.himarka.feature.dashboard.DashboardViewModel.formatStoredProduce(listOf(cabbage))
+        )
+        assertEquals(
+            "Cabbage + Tomato",
+            com.example.himarka.feature.dashboard.DashboardViewModel.formatStoredProduce(listOf(cabbage, tomato))
+        )
+        assertEquals(
+            "Cabbage + Tomato (+1)",
+            com.example.himarka.feature.dashboard.DashboardViewModel.formatStoredProduce(listOf(cabbage, tomato, carrot))
+        )
+    }
+
+    @Test
+    fun `farmer-first dashboard maps attention when temperature is out of range or door is open`() {
+        val normal = com.example.himarka.data.model.Telemetry(
+            temperatureC = 1.5f,
+            isDoorOpen = false,
+            batteryPercent = 90
+        )
+        val viewModel = com.example.himarka.feature.dashboard.DashboardViewModel(
+            repository = repository,
+            compatibilityUseCase = compatibilityUseCase
+        )
+
+        // With default cabbage stored and Mode 1 (0-2°C), 1.5°C is healthy
+        val state = viewModel.uiState.value
+        assertEquals(R.string.health_status_healthy, state.healthHeadlineResId)
+        assertFalse(state.isProduceConflicting)
+        assertNull(state.actionMessageResId)
+    }
 }

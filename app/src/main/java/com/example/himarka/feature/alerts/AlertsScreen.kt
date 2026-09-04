@@ -7,12 +7,16 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -28,6 +32,7 @@ import com.example.himarka.R
 import com.example.himarka.core.common.ui.HimarkaCard
 import com.example.himarka.core.common.ui.StatusChip
 import com.example.himarka.core.common.ui.StatusLevel
+import com.example.himarka.core.theme.HimarkaEmerald
 import com.example.himarka.core.theme.HimarkaShapes
 import com.example.himarka.core.theme.HimarkaTextMain
 import com.example.himarka.core.theme.HimarkaTextMuted
@@ -57,11 +62,22 @@ fun AlertsScreen(
 
         if (uiState.alerts.isEmpty()) {
             HimarkaCard(modifier = Modifier.fillMaxWidth(), elevation = 1.dp) {
-                Text(
-                    text = stringResource(id = R.string.alerts_empty),
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = HimarkaTextMuted
-                )
+                Row(
+                    modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.CheckCircle,
+                        contentDescription = null,
+                        tint = HimarkaEmerald,
+                        modifier = Modifier.padding(end = 12.dp)
+                    )
+                    Text(
+                        text = stringResource(id = R.string.alerts_all_clear),
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = HimarkaTextMain
+                    )
+                }
             }
         } else {
             LazyColumn {
@@ -117,7 +133,10 @@ fun AlertsScreen(
                         }
                     }
                 }
-                item { Spacer(modifier = Modifier.height(16.dp)) }
+                item {
+                    Spacer(modifier = Modifier.height(36.dp))
+                    Spacer(modifier = Modifier.navigationBarsPadding())
+                }
             }
         }
     }

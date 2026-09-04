@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
@@ -52,6 +53,7 @@ import com.example.himarka.core.common.ui.StatusChip
 import com.example.himarka.core.common.ui.StatusLevel
 import com.example.himarka.core.theme.HimarkaAmber
 import com.example.himarka.core.theme.HimarkaCardBorder
+import com.example.himarka.core.theme.HimarkaEmerald
 import com.example.himarka.core.theme.HimarkaShapes
 import com.example.himarka.core.theme.HimarkaTextMain
 import com.example.himarka.core.theme.HimarkaTextMuted
@@ -218,7 +220,12 @@ private fun ProduceManagementView(
                     val comp = uiState.compatibility
                     if (comp != null && comp.isCompatible && comp.recommendedPreset != null) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
-                            StatusChip(text = stringResource(id = R.string.produce_compatible), level = StatusLevel.OPTIMAL)
+                            Text(
+                                text = "✓ " + stringResource(id = R.string.produce_compatible),
+                                color = HimarkaEmerald,
+                                style = MaterialTheme.typography.labelLarge,
+                                fontWeight = FontWeight.SemiBold
+                            )
                         }
                         Spacer(modifier = Modifier.height(8.dp))
                         Text(
@@ -242,7 +249,12 @@ private fun ProduceManagementView(
                         }
                     } else if (comp != null && !comp.isCompatible) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
-                            StatusChip(text = stringResource(id = R.string.produce_conflict), level = StatusLevel.WARNING)
+                            Text(
+                                text = "⚠ " + stringResource(id = R.string.produce_conflict),
+                                color = HimarkaAmber,
+                                style = MaterialTheme.typography.labelLarge,
+                                fontWeight = FontWeight.SemiBold
+                            )
                         }
                         Spacer(modifier = Modifier.height(8.dp))
                         Text(
@@ -253,7 +265,8 @@ private fun ProduceManagementView(
                     }
                 }
             }
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(36.dp))
+            Spacer(modifier = Modifier.navigationBarsPadding())
         }
     }
 
@@ -368,6 +381,10 @@ private fun ProduceSelectionView(
                         )
                     }
                 }
+            }
+            item {
+                Spacer(modifier = Modifier.height(36.dp))
+                Spacer(modifier = Modifier.navigationBarsPadding())
             }
         }
     }

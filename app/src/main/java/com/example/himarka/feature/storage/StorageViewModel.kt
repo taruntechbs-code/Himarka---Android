@@ -12,13 +12,15 @@ import com.example.himarka.domain.usecase.MultiCropCompatibilityResult
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
+import com.example.himarka.data.model.CommandResult
 import kotlinx.coroutines.flow.stateIn
 
 data class StorageUiState(
     val activePreset: StoragePreset = StoragePreset.MODE_1,
     val storedCrops: List<CropProfile> = emptyList(),
     val compatibility: MultiCropCompatibilityResult? = null,
-    val allPresets: List<StoragePreset> = StoragePreset.entries
+    val allPresets: List<StoragePreset> = StoragePreset.entries,
+    val latestCommandResult: CommandResult? = null
 )
 
 class StorageViewModel(
@@ -28,12 +30,14 @@ class StorageViewModel(
 
     val uiState: StateFlow<StorageUiState> = combine(
         repository.activePresetFlow,
-        repository.storedCropsFlow
-    ) { preset, crops ->
+        repository.storedCropsFlow,
+        repository.latestCommandResultFlow
+    ) { preset, crops, commandResult ->
         StorageUiState(
             activePreset = preset,
             storedCrops = crops,
-            compatibility = compatibilityUseCase(crops)
+            compatibility = compatibilityUseCase(crops),
+            latestCommandResult = commandResult
         )
     }.stateIn(
         scope = viewModelScope,

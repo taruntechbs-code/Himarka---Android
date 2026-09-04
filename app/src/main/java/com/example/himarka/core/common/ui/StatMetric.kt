@@ -25,7 +25,8 @@ fun StatMetric(
     modifier: Modifier = Modifier,
     unit: String? = null,
     icon: ImageVector? = null,
-    iconTint: Color = MaterialTheme.colorScheme.primary
+    iconTint: Color = MaterialTheme.colorScheme.primary,
+    maxLabelLines: Int = 2
 ) {
     Column(modifier = modifier) {
         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -44,8 +45,8 @@ fun StatMetric(
                 text = label,
                 style = MaterialTheme.typography.bodyMedium,
                 color = HimarkaTextMuted,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
+                maxLines = maxLabelLines,
+                softWrap = true
             )
         }
         Spacer(modifier = Modifier.height(4.dp))

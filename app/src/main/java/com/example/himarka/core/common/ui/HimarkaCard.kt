@@ -25,6 +25,7 @@ fun HimarkaCard(
     modifier: Modifier = Modifier,
     backgroundColor: Color = HimarkaCardBackground,
     borderColor: Color = HimarkaCardBorder,
+    borderWidth: Dp = 1.dp,
     elevation: Dp = 0.dp,
     shape: Shape = HimarkaShapes.medium,
     contentPadding: Dp = 14.dp,
@@ -48,7 +49,7 @@ fun HimarkaCard(
         colors = CardDefaults.cardColors(
             containerColor = backgroundColor
         ),
-        border = BorderStroke(1.dp, borderColor),
+        border = BorderStroke(borderWidth, borderColor),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 0.dp // Shadow applied via modifier for custom tint
         )
